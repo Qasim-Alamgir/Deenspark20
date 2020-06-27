@@ -1,0 +1,23 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Qasim Alamgir",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "bcryptjs": "^2.4.3",
+    "connect-multiparty": "^2.2.0",
+    "csv-writer": "^1.6.0",
+    "download-file": "^0.1.5",
+    "generate-password": "^1.5.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.9",
+    "multer": "^1.4.2",
+    "nodemailer": "^6.4.8"
+  }
+}

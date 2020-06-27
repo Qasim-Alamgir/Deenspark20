@@ -1,0 +1,45 @@
+<div class="c-sidebar c-sidebar-dark c-sidebar-show">
+    <ul class="c-sidebar-nav">
+      <li class="c-sidebar-nav-title"><h1>DeenSpark</h1></li>
+      <li class="c-sidebar-nav-item">
+        <button routerLink = "../addproduct">
+            <i class="fa fa-file-video"></i> Movies
+        </button>
+      </li>
+      <li class="c-sidebar-nav-item">
+        <button routerLink = "../users">
+            <i class="fa fa-users"></i> Users
+        </button>
+      </li>
+      <li class="c-sidebar-nav-item">
+        <button routerLink = "../category">
+            <i class="fa fa-list"></i> Categories
+        </button>
+      </li>
+      <li class="c-sidebar-nav-item">
+        <button routerLink = "../reports">
+            <i class="fa fa-flag"></i> Reports
+        </button>
+      </li>
+    </ul>
+  </div>
+<div class  = "main-container">
+        <table class = "table">
+            <tr>
+                <th>Sr</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor = "let list of userList; let index = index">
+                <td>{{index+1}}</td>
+                <td>{{list.fname}} {{list.lname}}</td>
+                <td>{{list.email}}</td>
+                <td>{{list.address}}</td>
+                <td><button class = "btn btn-danger" (click) = "delUser(index,list._id)">Delete</button></td>
+            </tr>
+            
+        </table>
+</div>
+<router-outlet></router-outlet>

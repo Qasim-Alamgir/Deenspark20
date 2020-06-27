@@ -1,0 +1,74 @@
+.scnd-container{
+    background-color: #f6d55c;
+    .row{
+        width: 100%
+    }
+    .logoimg{
+      text-align: center;
+    }
+    img{
+      height: 175px;
+      width: 180px;
+    }
+  }
+  .search{
+    text-align: center;
+    padding-top: 60px;
+    input{
+      width: 225px;
+      padding: 5px 60px 5px 8px;
+      border-radius: 25px;
+      border: 1px solid #fffedf;
+      background-color: #fffedf;
+    }
+    mdb-icon{
+      position: absolute;
+      margin-left: -25px;
+      margin-top: 10px;
+    }
+  }
+  .main-contianer{
+    .heading{
+      width: 100%;
+      background: #1d8a8d;
+      padding: 20px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+      .row{
+        justify-content: center;
+        h1{
+          font-size: 30px;
+          text-transform: uppercase;
+          font-weight: bold;
+          color: antiquewhite;
+          margin-top: 15px;
+        }
+      }
+  }
+  .contianer{
+    margin-bottom: 20px;
+    text-align: -webkit-center;
+  }
+  .row{
+    width: 95%;
+  }
+  .poster{
+    outline: none; 
+    border: 0;
+    padding: 0px;
+    img{
+      width: 100%;
+      height: 200px;
+    }
+  }
+  .footer{
+    background: #f0535e;
+    text-align: center;
+    h2{
+      padding-top: 10px;
+    }
+  }
+  .card{
+    margin-top: 30px;
+  }

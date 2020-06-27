@@ -1,0 +1,172 @@
+<div class="c-sidebar c-sidebar-dark c-sidebar-show">
+    <ul class="c-sidebar-nav">
+      <li class="c-sidebar-nav-title"><h1>DeenSpark</h1></li>
+      <li class="c-sidebar-nav-item">
+        <button routerLink = "../addproduct">
+            <i class="fa fa-file-video"></i> Movies
+        </button>
+      </li>
+      <li class="c-sidebar-nav-item">
+        <button routerLink = "../users">
+            <i class="fa fa-users"></i> Users
+        </button>
+      </li>
+      <li class="c-sidebar-nav-item">
+        <button routerLink = "../category">
+            <i class="fa fa-list"></i> Categories
+        </button>
+      </li>
+      <li class="c-sidebar-nav-item">
+        <button routerLink = "../reports">
+            <i class="fa fa-flag"></i> Reports
+        </button>
+      </li>
+    </ul>
+  </div>
+<div class  = "main-container"> 
+    <div class="row addAnimation">
+        <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-video-file"> Add</i></button>
+    </div>    
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="exampleModalLabel">Add Animation</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form class = "form" [formGroup] = 'addproduct' (ngSubmit) = 'post(addproduct)'>
+        
+                    <!-- Progress Bar -->
+                    <div class = row>
+                        <div class = "col-md-4"></div>
+                        <div class = "col-md-8">
+                            <div class="progress form-group" *ngIf="progress > 0"> 
+                                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width.%]="progress">
+                                    <span>{{progress}}%</span>
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                    <div class = "row" >
+                        <div class = "col-md-4 text-right">
+                            <label>Animation Name</label>
+                        </div>
+                        <div class = "col-md-8" >
+                            <input class = "form-control input" type = "text" formControlName = "mname">
+                            <div *ngIf = "mname.invalid && (mname.dirty || mname.touched)">
+                                <div *ngIf = "mname.errors.required" style = "color:red">Name is required</div>     
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "row" >
+                        <div class = "col-md-4 text-right">
+                            <label>Category</label>
+                        </div>
+                        <div class = "col-md-8 ">
+                            <select class = "form-control"  formControlName = "selectcat">
+                                
+                                <option></option>
+                                <option *ngFor = "let cat of catlist" value = "{{cat.catvalue}}">{{cat.catname}}</option>                    
+                            </select>
+                            <div *ngIf = "selectcat.invalid && (selectcat.dirty || selectcat.touched)">
+                                <div *ngIf = "selectcat.errors.required" style = "color:red">Category is required</div>     
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "row" >
+                        <div class = "col-md-4 text-right">
+                            <label>Description</label>
+                        </div>
+                        <div class = "col-md-8" >
+                            <textarea class="md-textarea form-control" type = "text" formControlName = "description"></textarea>
+                            <div *ngIf = "description.invalid && (description.dirty || description.touched)">
+                                <div *ngIf = "description.errors.required" style = "color:red">Description is required</div>     
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "row">
+                        <div class = "col-md-4 text-right">
+                            <label>Thumbnail:</label>
+                        </div>
+                        <div class = "col-md-8">
+                            <input type="file" #myFile accept="image/x-png,image/gif,image/jpeg" (change) = "chooseFile($event)">         
+                            <div style = "color:red">{{extErr}}</div>     
+                        </div>
+                    </div>
+                    <div class = "row">
+                        <div class = "col-md-4 text-right">
+                            <label>Choose Animation:</label>
+                        </div>
+                        <div class = "col-md-8">
+                            <input type="file" #myVdo accept = "video/mp4, video/WebM, video/OGG" (change) = "chooseVideo($event)">         
+                            <div style = "color:red">{{vdoExtErr}}</div>     
+                        </div>
+                    </div>
+                    <!-- <div class = "row">
+                        <div class = "col-md-4 text-right">
+                            <label>Choose Movie:</label>
+                        </div>
+                        <div class = "col-md-8">
+                            <input type="file" (change) = "chooseVideo($event)">         
+                        </div>
+                    </div> -->
+                    <button type = "submit" class = "btn" style="float:right;" [disabled] = "!addproduct.valid">{{btnName}}</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    <div>
+        <table class = "table">
+            <tr>
+                <th>Sr</th>
+                <th>Name</th>
+                <th>Cateogry</th>
+                <th>Thumbnail</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor = "let data of product; let index = index">
+                <td>{{index+1}}</td>
+                <td>{{data.mname}}</td>
+                <td>{{data.selectcat}}</td>
+                <td>{{data.description}}</td>
+                <td>
+                    <button class = "poster" (click)="openBackDropCustomClass(content,data)"><img src = "{{ServerPath}}/{{data.img}}" height="100" width="100"/></button>
+                </td>
+                <td>
+                    <button type="button" class = "btn" data-toggle="modal" data-target="#exampleModal" (click) = "edit(index,data)">Edit</button>
+                    <button class = "btn btn-danger" (click) = "del(index,data._id)">Delete</button>
+                </td>
+            </tr>
+        </table>
+          <!-- Trigger the modal with a button -->
+  <ng-template #content let-modal>
+    <div class="dialog">
+        <div class="content">
+            <div class="modal-header">
+            <h4 class="modal-title">{{selectMovie.mname}}</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <video width="100%" controls>
+                <source src = "{{ServerPath}}/{{selectMovie.vdo}}" />
+            </video>
+            <div class="modal-footer">
+                <button type="button" class="btn" (click)="modal.close('Close click')">Close</button>
+            </div>
+        </div>
+    </div>
+  </ng-template>
+    </div>      
+      <!-- Modal -->     
+</div>
+<router-outlet></router-outlet>

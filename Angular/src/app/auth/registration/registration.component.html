@@ -1,0 +1,96 @@
+<div class="container card"> 
+    <div class="row">
+        <div class="col-md-7">
+            <form class = "form" [formGroup] = 'register' (ngSubmit) = 'post(register)'>
+                <div class="title">
+                    <h2 class="modal-title w-100 font-weight-bold">Registration form</h2>
+                </div>
+                <div *ngIf = "errAlert" class="alert alert-danger alert-dismissible fade show" role="errAlert">{{error}}</div>
+                <div class = "row" >
+                    <div class = "col-md-4 text-left">
+                    <label>First Name</label>
+                    </div>
+                    <div class = "col-md-8" >
+                        <input class = "form-control input" type = "text" placeholder="Your First Name" formControlName = "fname">
+                        <div *ngIf = "fname.invalid && (fname.dirty || fname.touched)">
+                            <div *ngIf = "fname.errors.required" style = "color:red">First Name is required</div>     
+                        </div>
+                    </div>
+                </div>
+                <div class = "row" >
+                    <div class = "col-md-4 text-left">
+                    <label>Last Name</label>
+                    </div>
+                    <div class = "col-md-8" >
+                        <input class = "form-control input" type = "text" placeholder="Your Last Name" formControlName = "lname">
+                        <div *ngIf = "lname.invalid && (lname.dirty || lname.touched)">
+                            <div *ngIf = "lname.errors.required" style = "color:red">Last Name is required</div>     
+                        </div>
+                    </div>
+                </div>
+                <div class = "row" >
+                    <div class = "col-md-4 text-left">
+                    <label>Email</label>
+                    </div>
+                    <div class = "col-md-8" >
+                        <input class = "form-control input" type = "text" placeholder="Enter Email" formControlName = "email">
+                        <div *ngIf = "email.invalid && (email.dirty || email.touched)">
+                            <div *ngIf = "email.errors.required" style = "color:red">Email is required</div>     
+                            <div *ngIf = "email.errors.email" style = "color:red">email@gmail.com</div>     
+                        </div>
+                    </div>
+                </div>
+                <div class = "row" >
+                    <div class = "col-md-4 text-left">
+                    <label>Address</label>
+                    </div>
+                    <div class = "col-md-8" >
+                        <input class = "form-control input" type = "text" placeholder="Your Address" formControlName = "address">
+                        <div *ngIf = "address.invalid && (address.dirty || address.touched)">
+                            <div *ngIf = "address.errors.required" style = "color:red">Address is required</div>          
+                        </div>
+                    </div>
+                </div>
+                <div class = "row">
+                    <div class = "col-md-4 text-left">
+                        <label>Password</label>
+                    </div>
+                    <div class = "col-md-8" >
+                        <input class = "form-control input" type = "password" placeholder="Enter Password" formControlName = "password">
+                        <div *ngIf = "password.invalid && (password.dirty || password.touched)">
+                            <div *ngIf = "password.errors.required" style = "color:red">Password is required</div>
+                            <div *ngIf = "password.errors?.minlength" style = "color:red">Password must be min 4 letters long</div>     
+                            <div *ngIf = "password.errors?.maxLength" style = "color:red">Password must be max 16 letters long</div>     
+                        </div>
+                    </div>
+                </div> 
+                <div class = "row">
+                    <div class = "col-md-4 text-left">
+                        <label>Confirm</label>
+                    </div>
+                    <div class = "col-md-8" >
+                        <input class = "form-control input" type = "password" placeholder="Confirm Password" formControlName = "confirmPassword">
+                        <div *ngIf = "confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)">
+                            <div *ngIf = "confirmPassword.errors.required" style = "color:red">Confirm Password is required</div> 
+                            <div *ngIf = "confirmPassword.errors?.minlength" style = "color:red">Password must be min 4 letters long</div>     
+                            <div *ngIf = "confirmPassword.errors?.maxLength" style = "color:red">Password must be max 16 letters long</div>         
+                        </div>
+                        <span *ngIf="register.errors?.invalid" style = "color: red">
+                            Password must match
+                        </span> 
+                    </div>
+                </div>    
+                <div class = "row regButton" >
+                    <button class = "btn" [disabled] = "!register.valid">Register</button>    
+                </div>  
+                <div *ngIf = "alert" class="alert alert-success alert-dismissible fade show" role="alert">
+                    Verification link has been sent it to provided email
+                    <button class="btn btn-warning" (click) = "resendCode()">Resend Code</button>
+                    <button (click) = "closeAlert()"type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>              
+            </form>
+        </div>
+    </div>
+</div>

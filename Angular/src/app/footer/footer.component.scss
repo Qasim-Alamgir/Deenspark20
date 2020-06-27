@@ -1,0 +1,27 @@
+.footer{
+	width: 100%;
+	bottom: 0;
+	.row{
+		margin-bottom: 19px;
+		font-size: 20px;
+		font-family: sans-serif;
+		width: 100%;
+	}
+	a{
+		color: black;
+	}
+	.about{
+		text-align: end;
+	}
+	.contact{
+		text-align: center;
+	}
+	.term{
+		text-align: end;
+		border-right: 1px solid;
+	}
+	.privacy{
+		text-align: center;
+		border-right: 1px solid;
+	}
+}

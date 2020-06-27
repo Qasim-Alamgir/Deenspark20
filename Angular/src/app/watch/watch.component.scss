@@ -1,0 +1,48 @@
+.scnd-container{
+    background-color: #f6d55c;
+    .row{
+        width: 100%
+    }
+    .logoimg{
+      text-align: center;
+    }
+    img{
+      height: 175px;
+      width: 180px;
+    }
+  }
+  .search{
+    text-align: center;
+    padding-top: 60px;
+    input{
+      width: 225px;
+      padding: 5px 60px 5px 8px;
+      border-radius: 25px;
+      border: 1px solid #fffedf;
+      background-color: #fffedf;
+    }
+    mdb-icon{
+      position: absolute;
+      margin-left: -25px;
+      margin-top: 10px;
+    }
+  }
+  .container{
+      padding: 30px;
+      .row{
+          justify-content: center;
+          .poster{
+            outline: none; 
+            border: 0;
+            padding: 0px;
+          }
+        }
+  }
+  .footer{
+    background: #f0535e;
+    text-align: center;
+    margin-top: -6px;
+    h2{
+      padding-top: 10px;
+    }
+  }

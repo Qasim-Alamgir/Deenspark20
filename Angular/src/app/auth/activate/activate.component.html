@@ -1,0 +1,10 @@
+<div class="row">
+    <div class="col-md-2"></div>
+    <div *ngIf = "errAlert" class="col-md-8 alert alert-danger alert-dismissible fade show" role="alert">
+        <h3><i class="fa fa-times-circle"></i>    {{expire}}</h3>
+    </div>
+    <div *ngIf = "alert" class="col-md-8 alert alert-success alert-dismissible fade show" role="alert">
+        <h3><i class="fa fa-check-circle"></i>    {{activate}}</h3>
+    </div>
+    <div class="col-md-2"></div>
+</div>

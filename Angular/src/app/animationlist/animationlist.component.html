@@ -1,0 +1,30 @@
+<div class="scnd-container">
+    <div class = "row">
+      <div class="col-md-4 logoimg">
+        <a href = "/"><img class = "logo" src="../../assets/image/logo.PNG"></a>
+      </div>
+      <div class="col-md-4"></div>
+      <div class="col-md-4 search">
+        <input type="text" placeholder="Search DeenSpark"><mdb-icon fas icon="search"></mdb-icon>
+      </div>
+    </div>
+</div>
+<div class="main-contianer">
+  <div class="heading">
+    <div class="row">
+        <h1>{{catname}}</h1>
+    </div>
+  </div>
+  <div class="contianer">
+    <div class="row">
+      <div class="col-md-4" *ngFor = 'let animation of animations'>
+        <div class="card">
+          <button class = "poster" (click) = "watchvideo(animation._id)"><img src = "{{ServerPath}}/{{animation.img}}"/></button>
+          <div class="footer">
+            <h2>{{animation.mname}}</h2>
+          </div> 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

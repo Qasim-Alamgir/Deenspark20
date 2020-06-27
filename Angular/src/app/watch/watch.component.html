@@ -1,0 +1,32 @@
+<div class="scnd-container">
+    <div class = "row">
+      <div class="col-md-4 logoimg">
+        <a href = "/"><img class = "logo" src="../../assets/image/logo.PNG"></a>
+      </div>
+      <div class="col-md-4"></div>
+      <div class="col-md-4 search">
+        <input type="text" placeholder="Search DeenSpark"><mdb-icon fas icon="search"></mdb-icon>
+      </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+            <div class = "poster">
+                <!-- <video width="100%"  controls>
+                    <source src="{{ServerPath}}/{{video[0].vdo}}"  type="video/mp4">
+                </video>   -->
+                <!-- <mat-video title="My Tutorial Title" [fullscreen]="true" [download]="false" color="accent" spinner="spin" poster="{{ServerPath}}/{{video[0].img}}">
+                    <source matVideoSource src="{{ServerPath}}/{{video[0].vdo}}">
+                  </mat-video> -->
+                  <video width="100%" [title] = "videotitle" [src] = "path" [poster] = "imgpath" controls>
+                </video>
+            </div>
+          <div class="footer">
+            <h2>{{videotitle}}</h2>
+          </div> 
+        </div>
+      </div>
+    </div>
+  </div>

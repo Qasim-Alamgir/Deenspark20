@@ -1,0 +1,55 @@
+<div  class = "bodycolor">
+    <div class  = "container firstdiv">
+            <div class = "headdiv" >
+                <div class = "backgroundstyleheaddiv">
+                    <h1 >SIGN IN</h1>
+                </div> 
+            </div>   
+        <div  class = "maindiv">
+            <form class = "form" [formGroup] = 'login' (ngSubmit) = 'post(login)'>
+                <div class = "row">
+                    <div class = "col-md-3"></div>
+                    <div class = "col-md-7"><p class = "err">{{error}}</p></div>
+                </div>
+                <div class = "row" >
+                    <div class = "col-md-4 text-right">
+                       <label>User Name</label>
+                    </div>
+                    <div class = "col-md-8" >
+                        <input class = "form-control input" type = "text" placeholder="Enter User Name" formControlName = "uname">
+                        <div *ngIf = "uname.invalid && (uname.dirty || uname.touched)">
+                            <div *ngIf = "uname.errors.required" style = "color:red">User Name is required</div>     
+                        </div>
+                    </div>
+                </div>
+                <div class = "row" style="margin-top: 10px;">
+                    <div class = "col-md-4 text-right">
+                        <label>Password</label>
+                    </div>
+                    <div class = "col-md-8" >
+                        <input class = "form-control input" type = "password" placeholder="Enter Password" formControlName = "password">
+                        <div *ngIf = "password.invalid && (password.dirty || password.touched)">
+                            <div *ngIf = "password.errors.required" style = "color:red">Password is required</div>     
+                        </div>
+                    </div>
+                </div>                    
+                <div class = "row" > 
+                    <div class = "col-md-4"></div>   
+                    <div class = "col-md-4">
+                        <input  type = "checkbox">&nbsp;
+                        <label>Remember me</label>
+                    </div>
+                    <div class = "col-md-4 text-right" >
+                        <button class = "btn btn-link">Forget password</button>
+                    </div>
+                </div>    
+                    <div class = "row" >
+                        <div class = "col-md-4"></div>
+                        <div class = "col-md-4">
+                            <button class = "btn btn-success" style="padding: 13px 50px; border-radius: 55px;" [disabled] = "!login.valid">Login</button>
+                        </div>    
+                    </div>                
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+<div class="scnd-container">
+    <div class = "row">
+      <div class="col-md-4 logoimg">
+        <a href = "/"><img class = "logo" src="../../assets/image/logo.PNG"></a>
+      </div>
+      <div class="col-md-4"></div>
+      <div class="col-md-4 search">
+        <input type="text" placeholder="Search DeenSpark"><mdb-icon fas icon="search"></mdb-icon>
+      </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="card">
+                <div class="card-header"><h2>Latest Video</h2></div>
+                <div class="card-body">
+                    <img width = 100% src = "../../assets/image/wuzu.jpg">
+                </div> 
+                <div class="card-footer"><h2>Wuzu</h2></div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <ul *ngFor = 'let list of catlist'>
+                <li>
+                    <div class="card">
+                    <button (click) = "getCat(list._id,list.catvalue)" class="card-body" [style.background]="list.catcolor">
+                            <h3>{{list.catname}}</h3>
+                        </button> 
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row category">
+        <div class="col-md-3">
+            <div class="card">
+                <a href = "#" class="card-body" style="background:#6dcdcc;">
+                    <h3>Pillar of Islam</h3>
+                </a> 
+            </div>
+        </div>    
+        <div class="col-md-3">
+            <div class="card">
+                <a href = "#" class="card-body" style="background:#ef7125">
+                    <h3>Pillar of Islam</h3>
+                </a> 
+            </div>
+        </div> <div class="col-md-3">
+            <div class="card">
+                <a href = "#" class="card-body" style="background:#abd38c">
+                    <h3>Pillar of Islam</h3>
+                </a> 
+            </div>
+        </div> <div class="col-md-3">
+            <div class="card">
+                <a href = "#" class="card-body" style="background:#40E0D0">
+                    <h3>Pillar of Islam</h3>
+                </a> 
+            </div>
+        </div> 
+    </div>
+    <div class="row voices">
+        <button class="col-md-6 voice">
+            <h2>Voice of DeenSpark Community!  </h2>
+        </button>
+        <div class="col-md-6 free">
+            <button><h2><i class="fa fa-file-video"></i>Free Stuff</h2></button>
+        </div>
+    </div>   
+  </div>

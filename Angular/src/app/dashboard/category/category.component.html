@@ -1,0 +1,74 @@
+<div class="c-sidebar c-sidebar-dark c-sidebar-show">
+    <ul class="c-sidebar-nav">
+      <li class="c-sidebar-nav-title"><h1>DeenSpark</h1></li>
+      <li class="c-sidebar-nav-item">
+        <button routerLink = "../addproduct">
+            <i class="fa fa-file-video"></i> Movies
+        </button>
+      </li>
+      <li class="c-sidebar-nav-item">
+        <button routerLink = "../users">
+            <i class="fa fa-users"></i> Users
+        </button>
+      </li>
+      <li class="c-sidebar-nav-item">
+        <button routerLink = "../category">
+            <i class="fa fa-list"></i> Categories
+        </button>
+      </li>
+      <li class="c-sidebar-nav-item">
+        <button routerLink = "../reports">
+            <i class="fa fa-flag"></i> Reports
+        </button>
+      </li>
+    </ul>
+  </div>
+<div class  = "main-container"> 
+        <form class = "form" [formGroup] = 'category' (ngSubmit) = 'post(category.value)'>
+            <div class = "row" >
+                <div class = "col-md-4 text-right">
+                    <label><i class="fa fa-list"></i></label>
+                </div>
+                <div class = "col-md-4" >
+                    <input class = "form-control" type = "text" formControlName = "catname" placeholder="Add Category">
+                    <div *ngIf = "catname.invalid && (catname.dirty || catname.touched)">
+                        <div *ngIf = "catname.errors.required"style = "color:red">Category is required</div>     
+                    </div>
+                </div>
+            </div> 
+            <div class = "row" >
+                <div class = "col-md-4 text-right">
+                    <label><i class="fa fa-list"></i></label>
+                </div>
+                <div class = "col-md-4" >
+                    <input class = "form-control" type = "text" formControlName = "catcolor" placeholder="Color of Category">
+                    <div *ngIf = "catcolor.invalid && (catcolor.dirty || catcolor.touched)">
+                        <div *ngIf = "catcolor.errors.required"style = "color:red">Color is required</div>     
+                    </div>
+                </div>
+            </div>   
+            <div class="col-md-4">
+                <button type = "submit" class = "btn" [disabled] = "!category.valid">{{btnName}}</button>
+            </div>                         
+        </form>
+        <div>
+            <table class = "table">
+                <tr>
+                    <th>Sr</th>
+                    <th>Cateogry Name</th>
+                    <th>Cateogry Value</th>
+                    <th>Color</th>
+                    <th>Action</th>
+                </tr>
+                <tr *ngFor = "let list of catlist; let index = index">
+                    <td>{{index+1}}</td>
+                    <td>{{list.catname}}</td>
+                    <td>{{list.catvalue}}</td>
+                    <td>{{list.catcolor}}</td>
+                    <td><button class = "btn" (click) = "edit(index,list)">Edit</button>
+                        <button class = "btn btn-danger" (click) = "del(index,list._id)">Delete</button></td>
+                </tr>  
+            </table>
+        </div>
+</div>
+<router-outlet></router-outlet>

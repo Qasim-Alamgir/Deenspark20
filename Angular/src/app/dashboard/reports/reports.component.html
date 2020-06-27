@@ -1,0 +1,60 @@
+<div class="c-sidebar c-sidebar-dark c-sidebar-show">
+    <ul class="c-sidebar-nav">
+      <li class="c-sidebar-nav-title"><h1>DeenSpark</h1></li>
+      <li class="c-sidebar-nav-item">
+        <button routerLink = "../addproduct">
+            <i class="fa fa-file-video"></i> Movies
+        </button>
+      </li>
+      <li class="c-sidebar-nav-item">
+        <button routerLink = "../users">
+            <i class="fa fa-users"></i> Users
+        </button>
+      </li>
+      <li class="c-sidebar-nav-item">
+        <button routerLink = "../category">
+            <i class="fa fa-list"></i> Categories
+        </button>
+      </li>
+      <li class="c-sidebar-nav-item">
+        <button routerLink = "../reports">
+            <i class="fa fa-flag"></i> Reports
+        </button>
+      </li>
+    </ul>
+  </div>
+<div class="main-container">
+    <table>
+        <tr>
+            <th><h2>Customers Reports</h2></th>
+            <td>
+                <button class="btn btn-success" (click) = "userReport()">Generate Report</button>
+            </td>
+            <td>
+                <div *ngIf = "alert" class="alert alert-success alert-dismissible fade show" role="alert">
+                    Report generated Successfully
+                    <a href = "http://localhost:3000/api/download" class="btn btn-warning" >Download</a>
+                    <button (click) = "closeAlert()"type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>        
+            </td>
+        </tr>
+        <tr>
+            <th><h2>Video Reports</h2></th>
+            <td>
+                <button class="btn btn-success" (click) = "videoReport()">Generate Report</button>
+            </td>
+            <td>
+                <div *ngIf = "vdoalert" class="alert alert-success alert-dismissible fade show" role="alert">
+                    Report generated Successfully
+                    <a href = "http://localhost:3000/api/vdodownload" class="btn btn-warning" >Download</a>
+                    <button (click) = "closeAlert()"type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>        
+            </td>
+        </tr>
+    </table>
+</div>
+<router-outlet></router-outlet>

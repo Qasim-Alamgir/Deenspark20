@@ -1,0 +1,42 @@
+.alert{
+        text-align: center;
+        width: fit-content;
+        padding: 10px 15px;
+    .close{
+        background: transparent;
+    span{
+        color: #173f5f;
+    }
+    }
+}
+.title{
+    text-align: center;
+    color: #173f5f;
+    margin-bottom: 30px;
+}
+.card{
+    margin-top: 30px;
+    padding: 30px;
+    border: 1px solid #173f5f;
+}
+.row{
+    padding: 15px;
+}
+form{
+    input{
+        border : 0px;
+        border-bottom: 1px solid #20639B;
+        }
+    button{
+        background-color: #173f5f;
+        color: #fff;
+        padding: 10px 25px;
+        border-radius: 25px;
+    }
+    label{
+        color: #173f5f
+    }
+}
+.regButton{
+    justify-content: center;
+}
