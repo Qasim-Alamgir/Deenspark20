@@ -21,6 +21,11 @@
             <i class="fa fa-flag"></i> Reports
         </button>
       </li>
+      <li class="c-sidebar-nav-item">
+        <button routerLink = "../subplan">
+            <i class="fa fa-flag"></i> Subscription
+        </button>
+      </li>
     </ul>
   </div>
 <div class  = "main-container"> 
@@ -129,8 +134,8 @@
                 <th>Sr</th>
                 <th>Name</th>
                 <th>Cateogry</th>
-                <th>Thumbnail</th>
                 <th>Description</th>
+                <th>Thumbnail</th>
                 <th>Action</th>
             </tr>
             <tr *ngFor = "let data of product; let index = index">

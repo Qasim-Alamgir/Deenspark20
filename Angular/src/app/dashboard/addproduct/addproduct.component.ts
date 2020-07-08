@@ -44,6 +44,11 @@ export class AddproductComponent implements OnInit {
 
     })
    }
+  
+  get mname(){return this.addproduct.get('mname');}
+  get selectcat(){return this.addproduct.get('selectcat');}
+  get description(){return this.addproduct.get('description');}
+  
    getCategory(){
     this._dashboardservice.getCategory().subscribe(
       (response) => {
@@ -56,16 +61,6 @@ export class AddproductComponent implements OnInit {
           this.product = response;
         });
       }
-
-  ngOnInit(){
-    this.getCategory();
-    this.getMovies();
-    console.log(this.product)
-  }
-
-  get mname(){return this.addproduct.get('mname');}
-  get selectcat(){return this.addproduct.get('selectcat');}
-  get description(){return this.addproduct.get('description');}
 
 post(form){
       if(this.extErr == null){
@@ -104,7 +99,6 @@ post(form){
                   this.progress = 0;
                 }, 1500);
                 this.getMovies();
-      
             }
           })
         this.myFile.nativeElement.value = null;
@@ -153,18 +147,7 @@ chooseFile(event){
       this.vdoExtErr = 'Only mp4, WebM are allowed'
     }
 }
-    // console.log(event.target.files[0]);
-    // var file = event.target.files[0];
-    // var reader  = new FileReader();
-    // reader.onload = (e : any) => {
-    //   this.addproduct.patchValue({
-    //     img : e.target.result
-    //   })
-    // }
-    // reader.readAsDataURL(file);
-    // console.log(this.addproduct.value)
     
- 
   edit(index,obj){
     this.update = true;
     this.editrecord = obj._id;
@@ -199,8 +182,10 @@ selectMovie;
     this.selectMovie = data;
     this.modalService.open(content, {backdropClass: 'light-blue-backdrop', size: 'lg'});
   }
-  // chooseVideo(event){
-  //    this.chooseVideoFile = event.target.files[0];
-  //   console.log(this.chooseVideoFile)
-  // }
+
+  ngOnInit(){
+    this.getCategory();
+    this.getMovies();
+    console.log(this.product)
+  }
 }

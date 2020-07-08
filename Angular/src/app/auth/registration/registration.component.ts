@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild  } from '@angular/core';
 import {AuthService} from '../auth.service';
-import {FormBuilder,AbstractControl, Validators} from '@angular/forms';
+import {DashboardService} from '../../dashboard/dashboard.service'
+import {FormBuilder,AbstractControl, Validators, FormsModule} from '@angular/forms';
 import { Router } from '@angular/router';
 import {Datatype} from '../datatype';
-
+declare var paypal;
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -11,16 +12,25 @@ import {Datatype} from '../datatype';
   providers: [AuthService]
 })
 export class RegistrationComponent implements OnInit {
-
+  @ViewChild('paypal', { static: true }) paypalElement: ElementRef;
   register;
   user_data;
   error;
   alert: boolean = false;
   errAlert: boolean = false;
+  planlist = [];
+  duration;
+  price;
+  regBtn ='';
+  planId;
+  subcripId: any;  
+  basicAuth = 'Basic Ac-ttV2e8UuSw1Kkd1sDY10M6MJ3ZhA3o3Ob4Lt4DBfIYbIh9vbAkQWw0rACEg4_eACDfL04tay-n4EJEIHPjfFmiRgBafDH0kGCEcrnBs96A04SAXWamZ4GPH1kEOU2kov_p6z5JboeHQk1tGepegDbHktrXu98=true';
+
 
   constructor(
     private fb : FormBuilder,
     private _authservice: AuthService,
+    private _dashboardservice : DashboardService,
     private router: Router
   ) { 
     this.register = fb.group({
@@ -82,8 +92,63 @@ export class RegistrationComponent implements OnInit {
     this.alert;
     this.errAlert;
   }
-  
-  ngOnInit(): void {
+
+  getSubPlan(){
+    this._dashboardservice.getSubPlan().subscribe(
+      (response) => {
+        console.log(response)
+        this.planlist = response;
+        
+    console.log(this.planlist);
+      });
+    }
+
+  selectedplan(list){
+    console.log(list)
+    this.planId = list.pname;
+    this.duration = list.duration;
+    this.price = list.price;
   }
 
+  getSubcriptionDetails(subcriptionId) {  
+    const xhttp = new XMLHttpRequest();  
+    xhttp.onreadystatechange = function () {  
+      if (this.readyState === 4 && this.status === 200) {  
+        console.log(JSON.parse(this.responseText));  
+        alert(JSON.stringify(this.responseText));  
+      }  
+    };  
+    xhttp.open('GET', 'https://api.sandbox.paypal.com/v1/billing/subscriptions/' + subcriptionId, true);  
+    xhttp.setRequestHeader('Authorization', this.basicAuth);  
+  
+    xhttp.send();  
+  }
+  
+  ngOnInit(): void {
+    this.getSubPlan();
+    const self = this;
+    paypal.Buttons({  
+      createSubscription: function (data, actions) {  
+        return actions.subscription.create({  
+          'plan_id': self.planId,  
+        });  
+      },  
+      onApprove: function (data, actions) {  
+        console.log(data);  
+        alert('You have successfully created subscription ' + data.subscriptionID); 
+        this.regBtn = true; 
+        self.getSubcriptionDetails(data.subscriptionID);  
+      },  
+      onCancel: function (data) {  
+        // Show a cancel page, or return to cart  
+        console.log(data);  
+      },  
+      onError: function (err) {  
+        // Show an error page here, when an error occurs  
+        console.log(err);  
+      }  
+  
+    }).render(this.paypalElement.nativeElement);
+  }
 }
+

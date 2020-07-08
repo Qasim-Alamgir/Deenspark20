@@ -4,6 +4,7 @@ var uc = require('../controllers/user.controller');
 var mc = require('../controllers/movies.controller');
 var ac = require('../controllers/addcategory.controller');
 var rc = require('../controllers/reports.controller')
+var sc = require('../controllers/subscription.controller')
 const multipart = require('connect-multiparty');
 const multipartMiddleware = multipart({
     uploadDir: './upload/image'
@@ -45,6 +46,13 @@ Routes.route('/updatecategory/:id').put(ac.updateCategory);
 //Routes for reports
 Routes.route('/userreport').get(rc.userReport);
 Routes.route('/videoreport').get(rc.videoReport);
+
+//Routes for subscription plan
+Routes.route('/addsubplan').post(sc.addSubPlan);
+Routes.route('/getsubplan').get(sc.getSubPlan);
+Routes.route('/updateplan/:id').put(sc.updatePlan);
+Routes.route('/delplan/:id').delete(sc.delPlan);
+
 
 
 module.exports = Routes;

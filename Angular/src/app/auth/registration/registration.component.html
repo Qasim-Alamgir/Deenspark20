@@ -1,7 +1,7 @@
 <div class="container card"> 
-    <div class="row">
-        <div class="col-md-7">
-            <form class = "form" [formGroup] = 'register' (ngSubmit) = 'post(register)'>
+    <form class = "form" [formGroup] = 'register' (ngSubmit) = 'post(register)'>
+        <div class="row">
+            <div class="col-md-6">
                 <div class="title">
                     <h2 class="modal-title w-100 font-weight-bold">Registration form</h2>
                 </div>
@@ -80,7 +80,7 @@
                         </span> 
                     </div>
                 </div>    
-                <div class = "row regButton" >
+                <div class = "row regButton">
                     <button class = "btn" [disabled] = "!register.valid">Register</button>    
                 </div>  
                 <div *ngIf = "alert" class="alert alert-success alert-dismissible fade show" role="alert">
@@ -89,8 +89,48 @@
                     <button (click) = "closeAlert()"type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
-                </div>              
-            </form>
+                </div>               
+            </div>               
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h1>Select Plan:</h1>
+                        <div class="card plan" *ngFor = "let list of planlist">
+                            <div *ngIf = "list.duration == 'Yearly'" class="card-header"><h2>BEST DEAL</h2></div>
+                            <div class="card-body">
+                                <div >
+                                    <input type="radio" name="planId" value="{{list}}" (change)="selectedplan(list)">
+                                    <span class="duration"> {{list.duration}} Payment</span>
+                                    <div class="subprice"><span>Price {{list.price}}/-</span></div>
+                                </div>
+                            </div> 
+                            <div class="card-footer"><h2>Renews {{list.duration}}</h2></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div><h2>Plan Selected :  {{duration}}</h2></div>
+                        <div style="text-align: end;">
+                            <i>{{price}}</i>
+                            <button style="border: 0px; color: #173f5f; background: transparent;">remove</button>
+                        </div>
+                        <table>
+                            <tr>
+                                <td>Subtotal</td>
+                                <td>{{price}}</td>
+                            </tr>
+                            <tr>
+                                <td>Estimated Tax</td>
+                                <td>$0</td>
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td>{{price}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div #paypal ></div> 
+            </div>
         </div>
-    </div>
+    </form>
 </div>

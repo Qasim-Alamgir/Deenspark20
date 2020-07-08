@@ -14,16 +14,13 @@ var transporter = nodemailer.createTransport({
   });
 
 module.exports.getUser = async function (req, res){
-  console.log(req.body)
-    const user = await User.find().select('-__v');
-    console.log(user);
-    res.send(user);
+  const user = await User.find().select('-__v');
+  res.send(user);
 }
+
 module.exports.adduser = async function(req,res){
   const user = await User.find({email : req.body.email}).select('-__v');
-  console.log(user.length);
   if(user.length == 0){
-    console.log(req.body);
     const saltRounds = 10;
     var hash = bcrypt.hashSync(req.body.password, saltRounds);
     req.body.password = hash;
@@ -41,7 +38,6 @@ module.exports.adduser = async function(req,res){
     }
     const user = new User(userObj);
     user.save();
-    console.log(user);
     res.json("Verification link has been sent it to provided email");
       
       var mailOptions = {
@@ -60,14 +56,12 @@ module.exports.adduser = async function(req,res){
         }
       });
     }else if(user[0].email !== null && user[0].active == false){
-      console.log(user[0]._id);
       token = jwt.sign({fname: req.body.fname, email: req.body.email}, secret, {expiresIn: '24h'})
       let obj = {
         temporarytoken : token
       }
       User.findByIdAndUpdate(user[0]._id, obj, {new: true})
     .then(response => {
-      console.log(response)
         res.json(response);
     })
       var mailOptions = {
@@ -87,7 +81,6 @@ module.exports.adduser = async function(req,res){
       });
     
     }else if(user[0].email !== null && user[0].active == true){
-      console.log(user.email);
       res.send({status:"Email Already exist"});
       console.log("Email already exist")
     }
@@ -95,11 +88,9 @@ module.exports.adduser = async function(req,res){
 
 module.exports.activate =  async function(req, res) {
     const user1 = await User.find({temporarytoken: req.body.token}).select('-__v');
-    console.log(user1.length)
     if(user1.length !== 0){
     var user = new User();
     User.findOne({temporarytoken: user1[0].temporarytoken}, function(err, user){
-      console.log(user.temporarytoken);
       if(user.temporarytoken !== false){
         if(err) throw err;
         var token = req.body.token;
@@ -107,7 +98,6 @@ module.exports.activate =  async function(req, res) {
             if(err){
                 res.json({success : false, message: 'error.'});
             } else{
-              console.log(user.temporarytoken)
                 user.temporarytoken = false;
                 user.active = true;
                 user.save(function(err){
@@ -138,13 +128,11 @@ module.exports.activate =  async function(req, res) {
       })
     }else{
       res.json("expired")
-
     }
 };
 
 module.exports.userLogin = async function (req, res){
     const user = await User.find({email : req.body.email}).select('-__v');
-    console.log(user);
     if(user.length > 0){
     bcrypt.compare(req.body.password, user[0].password, function(err, isMatch) {
       if (err) {
@@ -164,9 +152,7 @@ module.exports.userLogin = async function (req, res){
 }
 
 module.exports.checkPassword = async function (req, res){
-  console.log(req.body)
   const user = await User.find({_id : req.body.id}).select('-__v');
-  console.log(user);
   bcrypt.compare(req.body.oldPassword, user[0].password, function(err, isMatch) {
     if (err) {
       throw err
@@ -182,10 +168,8 @@ module.exports.checkPassword = async function (req, res){
 
 module.exports.reset = async function (req, res){
   const user1 = await User.find({email : req.body.email}).select('-__v');
-  console.log(user1.length)
   if(user1.length > 0 ){
   const user = User.findOne({email: req.body.email}, function(err, user){
-  console.log(user)
   if(user !== null){
     var pswrd = generator.generate({
       length: 10,
@@ -197,7 +181,6 @@ module.exports.reset = async function (req, res){
   let obj = {
     password : hash
   }
-  console.log(password);
   User.findByIdAndUpdate(user._id, obj, {new: true})
     .then(response => {
       console.log(response)
@@ -229,15 +212,12 @@ module.exports.reset = async function (req, res){
 
 module.exports.changepassword = (req, res) => {
   // Find customer and update it
-  console.log(req.params.id)
-  console.log(req.body.password)
   const saltRounds = 10;
     var hash = bcrypt.hashSync(req.body.password, saltRounds);
     req.body.password = hash;
   let obj = {
     password : req.body.password
   }
-  console.log(obj)
   User.findByIdAndUpdate(req.params.id, obj, {new: true})
   .then(response => {
       if(!response) {
@@ -260,10 +240,6 @@ module.exports.changepassword = (req, res) => {
 
 module.exports.editinfo = async function (req, res){
   // Find customer and update it
-  // const user = await User.find({email : req.body.email}).select('-__v');
-  //   console.log(user.length)
-  //   if(user.length > 0){
-  // }else{
     User.findByIdAndUpdate(req.params.id, req.body, {new: true})
       .then(response => {
           if(!response) {
@@ -282,11 +258,8 @@ module.exports.editinfo = async function (req, res){
               msg: "Error updating customer with id " + req.params._id
           });
       });
-  // }
 };
 module.exports.delUser = (req, res) => {
-  console.log('controller')
-  console.log(req.params.id)
   User.findByIdAndRemove(req.params.id)
   .then(response => {
       if(!response) {

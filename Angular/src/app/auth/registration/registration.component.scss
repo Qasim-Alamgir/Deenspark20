@@ -27,7 +27,7 @@ form{
         border : 0px;
         border-bottom: 1px solid #20639B;
         }
-    button{
+    .btn{
         background-color: #173f5f;
         color: #fff;
         padding: 10px 25px;
@@ -39,4 +39,33 @@ form{
 }
 .regButton{
     justify-content: center;
+}
+h1{
+    color: #173f5f;
+}
+.plan{
+    padding: 0px;
+    .card-header{
+        background: #a1cb39;
+        color: aliceblue;
+        h2{
+            margin-bottom: 0px;
+        }
+    }
+    .card-body{
+        background: aqua;
+        color: #173f5f;
+        .duration{
+            font-size: 18px;
+            font-weight: bold;
+        }
+    }
+    .card-footer{
+        h2{
+            margin-bottom: 0px;
+        }
+    }
+    .subprice{
+        text-align: right;
+    }
 }

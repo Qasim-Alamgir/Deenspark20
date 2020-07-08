@@ -18,7 +18,6 @@ module.exports.getMovie = async function (req, res){
 }
 
 module.exports.addMovies = function(req,res){
-    console.log('controller');
     let obj = {
         mname : req.body.mname,
         selectcat : req.body.selectcat,
@@ -47,9 +46,6 @@ module.exports.delMovies = (req, res) => {
 };
 module.exports.updateMovies = (req, res) => {
     // // Find Movie and update it
-    console.log(req.files.img)
-    console.log(req.files.vdo)
-    console.log(req.body)
     var imagePath = '';
     if(req.files.img !== undefined && req.files.img !== null){
         imagePath = req.files.img.path
@@ -63,7 +59,6 @@ module.exports.updateMovies = (req, res) => {
     }else{
         vdoPath = req.body.vdopath
     }
-    console.log(vdoPath)
     let obj = {
         mname : req.body.mname,
         selectcat : req.body.selectcat,
@@ -71,7 +66,6 @@ module.exports.updateMovies = (req, res) => {
         img : imagePath,
         vdo : vdoPath
     }
-    console.log(obj);
     Movies.findByIdAndUpdate(req.params.id, obj, {new: true})
     .then(response => {
         res.json(response);

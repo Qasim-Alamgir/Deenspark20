@@ -1,0 +1,109 @@
+<div class="c-sidebar c-sidebar-dark c-sidebar-show">
+    <ul class="c-sidebar-nav">
+      <li class="c-sidebar-nav-title"><h1>DeenSpark</h1></li>
+      <li class="c-sidebar-nav-item">
+        <button routerLink = "../addproduct">
+            <i class="fa fa-file-video"></i> Movies
+        </button>
+      </li>
+      <li class="c-sidebar-nav-item">
+        <button routerLink = "../users">
+            <i class="fa fa-users"></i> Users
+        </button>
+      </li>
+      <li class="c-sidebar-nav-item">
+        <button routerLink = "../category">
+            <i class="fa fa-list"></i> Categories
+        </button>
+      </li>
+      <li class="c-sidebar-nav-item">
+        <button routerLink = "../reports">
+            <i class="fa fa-flag"></i> Reports
+        </button>
+      </li>
+      <li class="c-sidebar-nav-item">
+        <button routerLink = "../subplan">
+            <i class="fa fa-flag"></i> Subscription
+        </button>
+      </li>
+    </ul>
+  </div>
+<div class  = "main-container"> 
+    <div class="row addSubscription">
+        <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-video-file"> Add</i></button>
+    </div>    
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="exampleModalLabel">Add Plan</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form class = "form" [formGroup] = 'subPlan' (ngSubmit) = 'post(subPlan)'>
+                    <div class = "row" >
+                        <div class = "col-md-4 text-right">
+                            <label>Plan Id</label>
+                        </div>
+                        <div class = "col-md-8" >
+                            <input class = "form-control input" type = "text" formControlName = "pname">
+                            <div *ngIf = "pname.invalid && (pname.dirty || pname.touched)">
+                                <div *ngIf = "pname.errors.required" style = "color:red">Plan Name is required</div>     
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "row" >
+                        <div class = "col-md-4 text-right">
+                            <label>Price</label>
+                        </div>
+                        <div class = "col-md-8" >
+                            <input class = "form-control input" type = "text" formControlName = "price">
+                            <div *ngIf = "price.invalid && (price.dirty || price.touched)">
+                                <div *ngIf = "price.errors.required" style = "color:red">Price is required</div>     
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "row" >
+                        <div class = "col-md-4 text-right">
+                            <label>Duration</label>
+                        </div>
+                        <div class = "col-md-8" >
+                            <input class = "form-control input" type = "text" formControlName = "duration">
+                            <div *ngIf = "duration.invalid && (duration.dirty || duration.touched)">
+                                <div *ngIf = "duration.errors.required" style = "color:red">Duration is required</div>     
+                            </div>
+                        </div>
+                    </div>
+                    <button type = "submit" class = "btn" style="float:right;" [disabled] = "!subPlan.valid">{{btnName}}</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div>
+        <table class = "table">
+            <tr>
+                <th>Sr</th>
+                <th>Plan Id</th>
+                <th>Price</th>
+                <th>Duration</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor = "let list of planlist; let index = index">
+                <td>{{index+1}}</td>
+                <td>{{list.pname}}</td>
+                <td>{{list.price}}</td>
+                <td>{{list.duration}}</td>
+                <td><button type="button" class = "btn" data-toggle="modal" data-target="#exampleModal" (click) = "edit(index,list)">Edit</button>
+                    <button class = "btn btn-danger" (click) = "del(index,list._id)">Delete</button></td>
+            </tr>  
+        </table>
+    </div>
+</div>
+<router-outlet></router-outlet>

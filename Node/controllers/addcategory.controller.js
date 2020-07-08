@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 
 module.exports.getCategory = async function (req, res){
     const addcategory = await Addcategory.find().select('-__v');
-    console.log(addcategory);
     res.send(addcategory);
 }
 module.exports.addCategory = function(req,res){
@@ -15,7 +14,6 @@ module.exports.addCategory = function(req,res){
     }
     const addcategory = new Addcategory(catObj);
     addcategory.save();
-    console.log(addcategory);
     res.send(addcategory);
 }
 module.exports.delCategory = (req, res) => {
@@ -38,7 +36,6 @@ module.exports.updateCategory = (req, res) => {
         catvalue : req.body.catvalue,
         catcolor : req.body.catcolor,
     }
-    console.log("controller")
     Addcategory.findByIdAndUpdate(req.params.id, catObj, {new: true})
     .then(response => {
         if(!response) {

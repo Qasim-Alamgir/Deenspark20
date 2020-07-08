@@ -4,10 +4,8 @@ const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const mongoose = require('mongoose');
 
 module.exports.userReport = async function (req, res){
-    var user = await User.find().select('-__v');
-    console.log(user[0].fname);
-   
-const csvWriter = createCsvWriter({
+  var user = await User.find().select('-__v');   
+  const csvWriter = createCsvWriter({
   path: 'reports/user_report.xls',
   header: [
     {id: 'fname', title: 'First Name'},

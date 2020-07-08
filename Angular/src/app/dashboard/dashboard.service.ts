@@ -2,41 +2,39 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import {environment} from '../../environments/environment';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class DashboardService {
-  addcategoryUrl = "http://localhost:3000/api/";
+  DashUrl = environment.API_URL;
 
   //Services for Categories
 
   constructor(private http: HttpClient) {}  
 addcategory(categoryname):Observable<any>{
   console.log(categoryname);
-  return this.http.post<any>(this.addcategoryUrl+'addcategory', categoryname);
+  return this.http.post<any>(this.DashUrl+'addcategory', categoryname);
 }
 
 getCategory(): Observable<any> {
-  return this.http.get<any>(this.addcategoryUrl +'getcategory');
+  return this.http.get<any>(this.DashUrl +'getcategory');
 }
     
 updatecategory(_id,categoryname):Observable<any>{
-  console.log(_id);
-  
-  return this.http.put<any>(this.addcategoryUrl + 'updatecategory/' + _id, categoryname);
-  
+  return this.http.put<any>(this.DashUrl + 'updatecategory/' + _id, categoryname);
 }
 
 delCategory (id): Observable<any> {
-  return this.http.delete<any>(this.addcategoryUrl +'delcategory/' + id);
+  return this.http.delete<any>(this.DashUrl +'delcategory/' + id);
 }
 
 //Services for Movies
 
 addMovies(formData):Observable<any>{
-  return this.http.post<any>(this.addcategoryUrl+'addmovies', formData,{
+  return this.http.post<any>(this.DashUrl+'addmovies', formData,{
     reportProgress: true,
     observe:'events'
   }).pipe(
@@ -57,45 +55,60 @@ errorMgmt(error: HttpErrorResponse) {
 }
 
 getMovies(): Observable<any> {
-  return this.http.get<any>(this.addcategoryUrl +'getmovies');
+  return this.http.get<any>(this.DashUrl +'getmovies');
 }
 
 delMovies(id): Observable<any> {
-  return this.http.delete<any>(this.addcategoryUrl +'delmovies/' + id);
+  return this.http.delete<any>(this.DashUrl +'delmovies/' + id);
 }
 updateMovies(id,formData):Observable<any>{
   console.log(formData);
-  return this.http.put<any>(this.addcategoryUrl + 'updatemovies/' + id, formData); 
+  return this.http.put<any>(this.DashUrl + 'updatemovies/' + id, formData); 
 }
 getMovieList(catvalue): Observable<any> {
   console.log(catvalue)
   let obj = {
     catvalue : catvalue
   }
-  return this.http.post<any>(this.addcategoryUrl +'getmovielist', obj);
+  return this.http.post<any>(this.DashUrl +'getmovielist', obj);
 }
 getMovie(id): Observable<any> {
   console.log(id)
   let obj = {
     _id : id
   }
-  return this.http.post<any>(this.addcategoryUrl +'getmovie', obj);
+  return this.http.post<any>(this.DashUrl +'getmovie', obj);
 }
 //Services for Users
 
 getUser(): Observable<any> {
-  return this.http.get<any>(this.addcategoryUrl +'getuser');
+  return this.http.get<any>(this.DashUrl +'getuser');
 }
 
 delUser(id): Observable<any> {
-  return this.http.delete<any>(this.addcategoryUrl +'deluser/' + id);
+  return this.http.delete<any>(this.DashUrl +'deluser/' + id);
 }
 
 // Services for Reports
 userReport(): Observable<any> {
-  return this.http.get<any>(this.addcategoryUrl +'userreport');
+  return this.http.get<any>(this.DashUrl +'userreport');
 }
 videoReport(): Observable<any> {
-  return this.http.get<any>(this.addcategoryUrl +'videoreport');
+  return this.http.get<any>(this.DashUrl +'videoreport');
 }
+
+// Services for Subscription Plan
+addSubPlan(plan):Observable<any>{
+  return this.http.post<any>(this.DashUrl+'addsubplan', plan);
+}
+getSubPlan(): Observable<any> {
+  return this.http.get<any>(this.DashUrl +'getsubplan');
+}
+updatePlan(_id,obj):Observable<any>{
+  return this.http.put<any>(this.DashUrl + 'updateplan/' + _id, obj);
+}
+delPlan(id): Observable<any> {
+  return this.http.delete<any>(this.DashUrl +'delplan/' + id);
+}
+
 }
