@@ -1,6 +1,6 @@
 <div class="c-sidebar c-sidebar-dark c-sidebar-show">
     <ul class="c-sidebar-nav">
-      <li class="c-sidebar-nav-title"><h1>DeenSpark</h1></li>
+      <li class="c-sidebar-nav-title"><a routerLink = "../../../" ><h1>DeenSpark</h1></a></li>
       <li class="c-sidebar-nav-item">
         <button routerLink = "../addproduct">
             <i class="fa fa-file-video"></i> Movies
@@ -110,14 +110,22 @@
                             <div style = "color:red">{{vdoExtErr}}</div>     
                         </div>
                     </div>
-                    <!-- <div class = "row">
+                    <div class = "row" >
                         <div class = "col-md-4 text-right">
-                            <label>Choose Movie:</label>
+                            <label>Featured</label>
                         </div>
-                        <div class = "col-md-8">
-                            <input type="file" (change) = "chooseVideo($event)">         
+                        <div class = "col-md-8 ">
+                            <input type="checkbox" value="true" class = "form-control"  formControlName = "featured">
                         </div>
-                    </div> -->
+                    </div>
+                    <div class = "row" >
+                        <div class = "col-md-4 text-right">
+                            <label>Free Stuff</label>
+                        </div>
+                        <div class = "col-md-8 ">
+                            <input type="checkbox" value="true" class = "form-control"  formControlName = "freestuff">
+                        </div>
+                    </div>
                     <button type = "submit" class = "btn" style="float:right;" [disabled] = "!addproduct.valid">{{btnName}}</button>
                 </form>
             </div>
@@ -144,7 +152,7 @@
                 <td>{{data.selectcat}}</td>
                 <td>{{data.description}}</td>
                 <td>
-                    <button class = "poster" (click)="openBackDropCustomClass(content,data)"><img src = "{{ServerPath}}/{{data.img}}" height="100" width="100"/></button>
+                    <button class = "poster" (click)="openBackDropCustomClass(content,data)"><img src = "{{ServerPath}}{{data.img}}" height="100" width="100"/></button>
                 </td>
                 <td>
                     <button type="button" class = "btn" data-toggle="modal" data-target="#exampleModal" (click) = "edit(index,data)">Edit</button>
@@ -163,7 +171,7 @@
             </button>
             </div>
             <video width="100%" controls>
-                <source src = "{{ServerPath}}/{{selectMovie.vdo}}" />
+                <source src = "{{ServerPath}}{{selectMovie.vdo}}" />
             </video>
             <div class="modal-footer">
                 <button type="button" class="btn" (click)="modal.close('Close click')">Close</button>

@@ -1,6 +1,6 @@
 <div class="c-sidebar c-sidebar-dark c-sidebar-show">
     <ul class="c-sidebar-nav">
-      <li class="c-sidebar-nav-title"><h1>DeenSpark</h1></li>
+      <li class="c-sidebar-nav-title"><a routerLink = "../../../" ><h1>DeenSpark</h1></a></li>
       <li class="c-sidebar-nav-item">
         <button routerLink = "../addproduct">
             <i class="fa fa-file-video"></i> Movies
@@ -38,7 +38,7 @@
             <td>
                 <div *ngIf = "alert" class="alert alert-success alert-dismissible fade show" role="alert">
                     Report generated Successfully
-                    <a href = "http://localhost:3000/api/download" class="btn btn-warning" >Download</a>
+                    <a href = "{{ServerPath}}api/download" class="btn btn-warning" >Download</a>
                     <button (click) = "closeAlert()"type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -53,7 +53,7 @@
             <td>
                 <div *ngIf = "vdoalert" class="alert alert-success alert-dismissible fade show" role="alert">
                     Report generated Successfully
-                    <a href = "http://localhost:3000/api/vdodownload" class="btn btn-warning" >Download</a>
+                    <a href = "{{ServerPath}}api/vdodownload" class="btn btn-warning" >Download</a>
                     <button (click) = "closeAlert()"type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>

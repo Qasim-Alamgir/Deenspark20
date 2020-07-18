@@ -8,6 +8,9 @@
     .c-sidebar-nav-title{
         font-weight: bold;
         color: #f6d55c;  
+        a{
+            color: #f6d55c;
+        }
         h1{
             font-size: 30px;
         }    
@@ -15,7 +18,7 @@
     ul{
         list-style: none;
         li{
-            padding: 10px;
+            padding: 17px;
             font-size: 20px;
             button{
                 color: #f7f9fa; 

@@ -1,6 +1,6 @@
 <div class="c-sidebar c-sidebar-dark c-sidebar-show">
     <ul class="c-sidebar-nav">
-      <li class="c-sidebar-nav-title"><h1>DeenSpark</h1></li>
+      <li class="c-sidebar-nav-title"><a routerLink = "../../../" ><h1>DeenSpark</h1></a></li>
       <li class="c-sidebar-nav-item">
         <button routerLink = "../addproduct">
             <i class="fa fa-file-video"></i> Movies
@@ -46,7 +46,7 @@
                     <label><i class="fa fa-list"></i></label>
                 </div>
                 <div class = "col-md-4" >
-                    <input class = "form-control" type = "text" formControlName = "catcolor" placeholder="Color of Category">
+                    <input class = "form-control" type = "color" formControlName = "catcolor" placeholder="Color of Category">
                     <div *ngIf = "catcolor.invalid && (catcolor.dirty || catcolor.touched)">
                         <div *ngIf = "catcolor.errors.required"style = "color:red">Color is required</div>     
                     </div>

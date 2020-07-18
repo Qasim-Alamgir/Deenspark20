@@ -4,6 +4,7 @@ import {DashboardService} from '../../dashboard/dashboard.service'
 import {FormBuilder,AbstractControl, Validators, FormsModule} from '@angular/forms';
 import { Router } from '@angular/router';
 import {Datatype} from '../datatype';
+import { element } from 'protractor';
 declare var paypal;
 @Component({
   selector: 'app-registration',
@@ -25,7 +26,10 @@ export class RegistrationComponent implements OnInit {
   planId;
   subcripId: any;  
   basicAuth = 'Basic Ac-ttV2e8UuSw1Kkd1sDY10M6MJ3ZhA3o3Ob4Lt4DBfIYbIh9vbAkQWw0rACEg4_eACDfL04tay-n4EJEIHPjfFmiRgBafDH0kGCEcrnBs96A04SAXWamZ4GPH1kEOU2kov_p6z5JboeHQk1tGepegDbHktrXu98=true';
-
+  tokan = 'Bearer A21AAFe2vDDpquVZO6DB6y3eVbxmE3ZTLr38zQ4-NG9Z8haELrgiiip-a1KCTUnIH5BoNC-KaZMbu8ENwpT3P_x07OFPzPH2w'
+  orderinfo;
+  resend;
+  
 
   constructor(
     private fb : FormBuilder,
@@ -56,33 +60,41 @@ export class RegistrationComponent implements OnInit {
         return {invalid: true};
     }
   }
+  user = new Datatype();
+  addfrom(form){
+    
+    this.user.fname = this.register.value.fname;
+    this.user.lname = this.register.value.lname;
+    this.user.email = this.register.value.email;
+    this.user.address = this.register.value.address;
+    this.user.password = this.register.value.password;
+    this.resend = this.user;
+}
 
-  post(form){
-    var user = new Datatype();
-    user.fname = this.register.value.fname;
-    user.lname = this.register.value.lname;
-    user.email = this.register.value.email;
-    user.address = this.register.value.address;
-    user.password = this.register.value.password;
-    this._authservice.registeration(user).subscribe(
-      (response) => {
-        console.log(response);
-        if(response.status == "Email Already exist"){
-          this.errAlert = true;
-          this.error = "Email Already exist"
-        }else{
-          this.error = null;
-          this.errAlert = false;
-          this.register.reset();
-          this.user_data = user;
-          this.alert = true;
-        }
+adduser(subscriptionID){
+  console.log(subscriptionID)
+  this.orderinfo = subscriptionID
+  this._authservice.registeration(this.user,subscriptionID).subscribe(
+    (response) => {
+      console.log(response);
+      if(response.status == "Email Already exist"){
+        this.errAlert = true;
+        this.error = "Email Already exist"
+      }else{
+        this.error = null;
+        this.errAlert = false;
+        this.register.reset();
+        this.user_data = this.user;
+        console.log(this.user)
+        this.alert = true;
       }
-  )}
+    }
+)
+}
 
   resendCode(){
-    console.log(this.user_data);
-    this._authservice.registeration(this.user_data).subscribe(
+    console.log(this.resend);
+    this._authservice.registeration(this.user,this.orderinfo).subscribe(
       (response) => {
         console.log(this.user_data);
     })
@@ -110,7 +122,9 @@ export class RegistrationComponent implements OnInit {
     this.price = list.price;
   }
 
-  getSubcriptionDetails(subcriptionId) {  
+  getSubcriptionDetails(subscriptionID) {  
+    console.log(subscriptionID)
+    this.adduser(subscriptionID);
     const xhttp = new XMLHttpRequest();  
     xhttp.onreadystatechange = function () {  
       if (this.readyState === 4 && this.status === 200) {  
@@ -118,14 +132,22 @@ export class RegistrationComponent implements OnInit {
         alert(JSON.stringify(this.responseText));  
       }  
     };  
-    xhttp.open('GET', 'https://api.sandbox.paypal.com/v1/billing/subscriptions/' + subcriptionId, true);  
-    xhttp.setRequestHeader('Authorization', this.basicAuth);  
-  
+    xhttp.open('GET', 'https://api.sandbox.paypal.com/v1/billing/subscriptions/' + subscriptionID, true);  
+    xhttp.setRequestHeader('Authorization', this.tokan);  
     xhttp.send();  
   }
+  transactininfo(){
+    this._authservice.transaction(this.tokan).subscribe(
+              (response) => {
+                console.log(response.status)
+              })
+  }
+  
   
   ngOnInit(): void {
-    this.getSubPlan();
+
+    this.getSubPlan()
+    // this.transactininfo();
     const self = this;
     paypal.Buttons({  
       createSubscription: function (data, actions) {  
@@ -135,8 +157,9 @@ export class RegistrationComponent implements OnInit {
       },  
       onApprove: function (data, actions) {  
         console.log(data);  
-        alert('You have successfully created subscription ' + data.subscriptionID); 
-        this.regBtn = true; 
+        this.orderinfo =  data;
+        console.log(this.orderinfo)
+        alert('You have successfully created subscription ' + data.subscriptionID);
         self.getSubcriptionDetails(data.subscriptionID);  
       },  
       onCancel: function (data) {  

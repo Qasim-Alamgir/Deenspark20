@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {DashboardService} from '../dashboard.service';
-  import { from } from 'rxjs';
+import {environment} from '../../../environments/environment'
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-reports',
@@ -17,6 +18,7 @@ export class ReportsComponent implements OnInit {
 
   alert: boolean = false;
   vdoalert: boolean = false;
+  ServerPath = environment.image_URL;
 
   userReport(){
     this._dashboardservice.userReport().subscribe(

@@ -36,6 +36,10 @@ const User = mongoose.model(
             type : String,
             required : true 
         },
+        order: {
+            type : String,
+            required : true 
+        },
         spare_1 : {
             type : String,
             required : false,

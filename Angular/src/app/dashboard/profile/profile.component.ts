@@ -20,6 +20,7 @@ userEmail;
 userAddress;
 userPassword;
 changePassword;
+subId;
 error;
 success;
 successPass;
@@ -126,6 +127,7 @@ successPassAlert: boolean = false;
     this.userEmail = this.localdata.email;
     this.userPassword = this.localdata.password;
     this.userAddress = this.localdata.address;        
+    this.subId = this.localdata.order;        
   }
 
 }

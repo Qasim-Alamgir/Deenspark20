@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatVideoModule } from 'mat-video';
 import { AnimationlistComponent } from './animationlist/animationlist.component';
 import { WatchComponent } from './watch/watch.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,8 @@ import { WatchComponent } from './watch/watch.component';
     
   ],
   providers: [],
+
+  // providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

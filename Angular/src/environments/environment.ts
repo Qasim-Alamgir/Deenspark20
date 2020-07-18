@@ -5,7 +5,10 @@
 export const environment = {
   production: false,
   API_URL: "http://localhost:3000/api/",
+  image_URL : "http://localhost:3000/",
+  list_URL : "http://localhost:3000"
 };
+
 
 /*
  * For easier debugging in development mode, you can import the following file

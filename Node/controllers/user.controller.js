@@ -18,7 +18,9 @@ module.exports.getUser = async function (req, res){
   res.send(user);
 }
 
+
 module.exports.adduser = async function(req,res){
+  console.log(req.body)
   const user = await User.find({email : req.body.email}).select('-__v');
   if(user.length == 0){
     const saltRounds = 10;
@@ -30,6 +32,7 @@ module.exports.adduser = async function(req,res){
         email : req.body.email,
         address : req.body.address,
         password : req.body.password,
+        order : req.body.order,
         spare_1 : '',
         spare_2 : '',
         spare_3 : '',
@@ -45,7 +48,7 @@ module.exports.adduser = async function(req,res){
         to: user.email,
         subject: 'Activation Link',
         text: 'That was easy!',
-        html: '<body style="background-color:#f6d55c;padding: 30px;"><h1>Hello  <strong>' + req.body.fname + '</strong>,</h1><h3>Thank you for registering at DeenSpark.com. Please click the button below to complete your activation:</h3><button style="padding: 10px;background: #173f5f;color: aliceblue;border: 1px solid #20639b;"><a style = "color: #eaeef5; padding: 15px; font-size: 20px;"href="http://localhost:4200/auth/activate/' + userObj.temporarytoken + '">Activate Account</button></body>'
+        html: '<body style="background-color:#f6d55c;padding: 30px;"><h1>Hello  <strong>' + req.body.fname + '</strong>,</h1><h3>Thank you for registering at DeenSpark.com. Please click the button below to complete your activation:</h3><button style="padding: 10px;background: #173f5f;color: aliceblue;border: 1px solid #20639b;"><a style = "color: #eaeef5; padding: 15px; font-size: 20px;"href="http:/localhost:4200/auth/activate/' + userObj.temporarytoken + '">Activate Account</button></body>'
       };
       
       transporter.sendMail(mailOptions, function(error, info){
@@ -108,7 +111,7 @@ module.exports.activate =  async function(req, res) {
                             from: 'qaxim12@gmail.com',
                             to: user.email,
                             subject: 'Activation Link',
-                            text: 'That was easy!',
+                            text: 'Your account has been successfully activated',
                             html: '<body style="background-color:#f6d55c;padding: 30px;"><h1>Hello ,</h1><h3>Your account has been successfully activated</h3></body>'
                           };
                           
@@ -259,6 +262,7 @@ module.exports.editinfo = async function (req, res){
           });
       });
 };
+
 module.exports.delUser = (req, res) => {
   User.findByIdAndRemove(req.params.id)
   .then(response => {
@@ -270,3 +274,23 @@ module.exports.delUser = (req, res) => {
       res.json({msg: "Customer deleted successfully!"});
   })
 };
+
+module.exports.remainderEmail = async function (req, res){
+  console.log(req.body)
+  var mailOptions = {
+    from: 'qaxim12@gmail.com',
+    to: req.body.email,
+    subject: 'Remainder',
+    text: 'Thanks for being a part of DeenSpark. Your next billing date is ' + req.body.date,
+    html: '<body style="background-color:#f6d55c;padding: 30px;"><h1>Hello</h1><h3>Thanks for being a part of DeenSpark. Your next billing date is ' + req.body.date + '</h3></body>'
+  };
+  
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+  res.json("activated")
+}

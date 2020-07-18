@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {DashboardService} from '../dashboard/dashboard.service';
+import {environment} from '../../environments/environment'
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -9,7 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class WatchComponent implements OnInit {
   videoId;
-  ServerPath = "http://localhost:3000/";
+  ServerPath = environment.image_URL;
   video;
   path;
   imgpath;

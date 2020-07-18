@@ -22,6 +22,7 @@ Routes.route('/adduser').post(uc.adduser);
 Routes.route('/reset').post(uc.reset);
 Routes.route('/getuser').get(uc.getUser);
 Routes.route('/userLogin').post(uc.userLogin);
+Routes.route('/remainderemail').post(uc.remainderEmail);
 Routes.route('/activate').post(uc.activate);
 Routes.route('/checkpassword').post(uc.checkPassword);
 Routes.route('/changepassword/:id').put(uc.changepassword);

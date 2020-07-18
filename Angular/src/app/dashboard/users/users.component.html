@@ -1,6 +1,6 @@
 <div class="c-sidebar c-sidebar-dark c-sidebar-show">
     <ul class="c-sidebar-nav">
-      <li class="c-sidebar-nav-title"><h1>DeenSpark</h1></li>
+      <li class="c-sidebar-nav-title"><a routerLink = "../../../" ><h1>DeenSpark</h1></a></li>
       <li class="c-sidebar-nav-item">
         <button routerLink = "../addproduct">
             <i class="fa fa-file-video"></i> Movies
@@ -35,6 +35,7 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Address</th>
+                <th>Order Info</th>
                 <th>Action</th>
             </tr>
             <tr *ngFor = "let list of userList; let index = index">
@@ -42,6 +43,7 @@
                 <td>{{list.fname}} {{list.lname}}</td>
                 <td>{{list.email}}</td>
                 <td>{{list.address}}</td>
+                <td>{{list.order}}</td>                
                 <td><button class = "btn btn-danger" (click) = "delUser(index,list._id)">Delete</button></td>
             </tr>
             

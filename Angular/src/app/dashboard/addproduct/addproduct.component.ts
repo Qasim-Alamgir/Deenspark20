@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {FormBuilder, Validators} from '@angular/forms';
 import {DashboardService} from '../dashboard.service';
+import {environment} from '../../../environments/environment'
 import { HttpClient, HttpEvent, HttpEventType } from '@angular/common/http';
 
 
@@ -19,7 +20,7 @@ export class AddproductComponent implements OnInit {
 
   addproduct;
   catlist;
-  ServerPath = "http://localhost:3000"
+  ServerPath = environment.image_URL;
   product = [];
   chooseVideoFile 
   update : boolean = false;
@@ -40,7 +41,10 @@ export class AddproductComponent implements OnInit {
       description : ['', [Validators.required]],
       selectcat : [this.catlist, [Validators.required]],
       img : [''],
-      vdo : ['']
+      vdo : [''],
+      featured : [''],
+      freestuff : [''],
+      
 
     })
    }
@@ -65,10 +69,13 @@ export class AddproductComponent implements OnInit {
 post(form){
       if(this.extErr == null){
       let frm = form.value;
+      console.log(frm)
       var formData = new FormData()
       formData.append("mname",frm.mname);
       formData.append("selectcat",frm.selectcat);
       formData.append("description",frm.description);
+      formData.append("featured",frm.featured);
+      formData.append("freestuff",frm.freestuff);
       if(this.uploadedFiles !== undefined && this.uploadedFiles !== null){
         formData.append("img", this.uploadedFiles[0], this.uploadedFiles[0].name);
       }else{
@@ -80,43 +87,44 @@ post(form){
       }else{
         formData.append("vdopath", frm.vdo);
       }
-      if(this.update == false ){
-        this._dashboardservice.addMovies(formData).subscribe(
-          (event: HttpEvent<any>) => {
-            switch (event.type) {
-              case HttpEventType.Sent:
-                console.log('Request has been made!');
-                break;
-              case HttpEventType.ResponseHeader:
-                console.log('Response header has been received!');
-                break;
-              case HttpEventType.UploadProgress:
-                this.progress = Math.round(event.loaded / event.total * 100);
-                break;
-              case HttpEventType.Response:
-                console.log('User successfully created!', event.body);
-                setTimeout(() => {
-                  this.progress = 0;
-                }, 1500);
-                this.getMovies();
-            }
-          })
-        this.myFile.nativeElement.value = null;
-        this.addproduct.reset();
-      }else{      
-      this.update = false;
-      this._dashboardservice.updateMovies(this.editrecord,formData).subscribe(
-      (response) => {
-      console.log(response);
-      this.getMovies();
-      }); 
-      }
-      this.myFile.nativeElement.value = null;
-      this.myVdo.nativeElement.value = null;
-      this.uploadedVideo = null;
-      this.uploadedFiles = null;
-      this.btnName = "Add Movie";
-      this.addproduct.reset();
+      console.log(formData)
+      // if(this.update == false ){
+      //   this._dashboardservice.addMovies(formData).subscribe(
+      //     (event: HttpEvent<any>) => {
+      //       switch (event.type) {
+      //         case HttpEventType.Sent:
+      //           console.log('Request has been made!');
+      //           break;
+      //         case HttpEventType.ResponseHeader:
+      //           console.log('Response header has been received!');
+      //           break;
+      //         case HttpEventType.UploadProgress:
+      //           this.progress = Math.round(event.loaded / event.total * 100);
+      //           break;
+      //         case HttpEventType.Response:
+      //           console.log('User successfully created!', event.body);
+      //           setTimeout(() => {
+      //             this.progress = 0;
+      //           }, 1500);
+      //           this.getMovies();
+      //       }
+      //     })
+      //   this.myFile.nativeElement.value = null;
+      //   this.addproduct.reset();
+      // }else{      
+      // this.update = false;
+      // this._dashboardservice.updateMovies(this.editrecord,formData).subscribe(
+      // (response) => {
+      // console.log(response);
+      // this.getMovies();
+      // }); 
+      // }
+      // this.myFile.nativeElement.value = null;
+      // this.myVdo.nativeElement.value = null;
+      // this.uploadedVideo = null;
+      // this.uploadedFiles = null;
+      // this.btnName = "Add Movie";
+      // this.addproduct.reset();
     }else{
       console.log(this.extErr)
     }
